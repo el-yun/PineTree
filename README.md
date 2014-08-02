@@ -12,11 +12,9 @@ PineTree
 
 ##Team_ Ameraicano Two Shot
 
-```sh
- - 강지수 : PM / Mobile용 플랫폼 어플리케이션 개발
- - 윤지환 : 전체 Architect / 서버 및 PC용 크로스 플랫폼 어플리케이션 개발
- - 강신혁 : Mobile 부분 책임개발 / Mobile용 플랫폼 어플리케이션 개발
- - 김승은 : Mobile 부분 HCI 설계 / Mobile용 플랫폼 어플리케이션 개발 
- - 이가영 : 기술 문서 담당 /  Mobile용 플랫폼 어플리케이션 개발
- - 김태휴 : QA / 기획 문서 담당 / PC 부분 HCI 설계 / UX 기획
-```
+      강지수 : PM / Mobile용 플랫폼 어플리케이션 개발
+      윤지환 : 전체 Architect / 서버 및 PC용 크로스 플랫폼 어플리케이션 개발
+      강신혁 : Mobile 부분 책임개발 / Mobile용 플랫폼 어플리케이션 개발
+      김승은 : Mobile 부분 HCI 설계 / Mobile용 플랫폼 어플리케이션 개발 
+      이가영 : 기술 문서 담당 /  Mobile용 플랫폼 어플리케이션 개발
+      김태휴 : QA / 기획 문서 담당 / PC 부분 HCI 설계 / UX 기획
