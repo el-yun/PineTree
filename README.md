@@ -1,6 +1,5 @@
 PineTree
 =========
-----
 
 ##OpenSource Project Management Solution
 
@@ -10,7 +9,7 @@ PineTree
       단일화된 스키마 위에 다양한 뷰, 필터를 이용하여 업무에 효과적으로 활용
 
 
-##Team_ Ameraicano Two Shot
+##Ameraicano Two Shot Team
 
       강지수 : PM / Mobile용 플랫폼 어플리케이션 개발
       윤지환 : 전체 Architect / 서버 및 PC용 크로스 플랫폼 어플리케이션 개발
