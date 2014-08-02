@@ -1,15 +1,17 @@
 PineTree
 =========
+----
 
-OpenSource Project Management Solution
+##OpenSource Project Management Solution
 
-  - 오픈소스로 개발하는 프로젝트 관리 솔루션
-  - 일반 사용자 또는 사내 팀, 프로젝트, 셀 등 중/소단위 프로젝트 대상
-  - 타임라인 기반의 직관적인 UI
-  - 단일화된 스키마 위에 다양한 뷰, 필터를 이용하여 업무에 효과적으로 활용
+      오픈소스로 개발하는 프로젝트 관리 솔루션
+      일반 사용자 또는 사내 팀, 프로젝트, 셀 등 중/소단위 프로젝트 대상
+      타임라인 기반의 직관적인 UI
+      단일화된 스키마 위에 다양한 뷰, 필터를 이용하여 업무에 효과적으로 활용
 
-Member
---------------
+
+##Team_ Ameraicano Two Shot
+
 ```sh
  - 강지수 : PM / Mobile용 플랫폼 어플리케이션 개발
  - 윤지환 : 전체 Architect / 서버 및 PC용 크로스 플랫폼 어플리케이션 개발
