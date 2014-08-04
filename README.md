@@ -8,6 +8,9 @@ PineTree
       타임라인 기반의 직관적인 UI
       단일화된 스키마 위에 다양한 뷰, 필터를 이용하여 업무에 효과적으로 활용
 
+##Structure PineTree
+
+      client - PC Cross Plaform Client
 
 ##Americano Two Shot Team
 
