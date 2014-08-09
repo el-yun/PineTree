@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="domain_array">
+        <item>daum.net</item>
+        <item>gmail.com</item>
+        <item>naver.com</item>
+        <item>nate.com</item>
+        <item>yahoo.kr</item>
+    </string-array>
+
+</resources>
