@@ -1,8 +1,9 @@
 package com.pinetree;
 
+import android.app.Activity;
 
-public class ServerConnectionInfo {
+public class ServerConnectionInfo extends Activity {
 
-	public static String servletPath = "http://118.43.33.118:8080/PineTreeServer/PineTreeServlet";
-	
+	public static String URL = "http://118.43.33.118:8080/GalleryUploadServer/LoginServlet";
+
 }
