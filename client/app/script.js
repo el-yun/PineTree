@@ -1,64 +1,129 @@
-var gui = require('nw.gui');
-gui.Window.get().show();
+// Global Variable
+var SERVER = "http://nodepj.com:9000/";
+var TEMPLATE = "./template/";
+var SESSION_USER = {"userName": null, "id": null};
+var SESSION_TREE = "";
+var TREE = {};
+var VIEW = "timeline";
+var pollTime = 2000; // 폴링 주기
+var poll = new Timeout(fnpoll, pollTime); // 폴링 객체
 
-var menu1 = new gui.Menu();
-var submenu = new gui.Menu();
-submenu.append(new gui.MenuItem({ type: 'checkbox', label: 'box1' }));
-submenu.append(new gui.MenuItem({ type: 'checkbox', label: 'box2' }));
-submenu.append(new gui.MenuItem({ type: 'checkbox', label: 'box3' }));
-submenu.append(new gui.MenuItem({ type: 'checkbox', label: 'box4' }));
-menu1.append(new gui.MenuItem({ icon: 'imgs/cut.png', label: 'Cut' }));
-menu1.append(new gui.MenuItem({ icon: 'imgs/edit.png', label: 'Edit' }));
-menu1.append(new gui.MenuItem({ icon: 'imgs/email.png', label: 'Email' }));
-menu1.append(new gui.MenuItem({ icon: 'imgs/play.png', label: 'Play' }));
-menu1.append(new gui.MenuItem({ icon: 'imgs/tick.png', label: 'Tick' }));
-menu1.append(new gui.MenuItem({ type: 'separator' }));
-menu1.append(new gui.MenuItem({ icon: 'imgs/disk.png', label: 'Disk', submenu: submenu }));
+// Initialize
+(function init() {
+    $('.ui.sidebar').sidebar('toggle'); // Aside 출력
+    fnpoll(); // 최초 실행
+})();
 
-var menu2 = new gui.Menu();
-menu2.append(new gui.MenuItem({ type: 'checkbox', label: 'Apple' }));
-menu2.append(new gui.MenuItem({ type: 'checkbox', label: 'Banana' }));
-menu2.append(new gui.MenuItem({ type: 'checkbox', label: 'Strawberry' }));
-menu2.append(new gui.MenuItem({ type: 'checkbox', label: 'Pear' }));
-menu2.append(new gui.MenuItem({ type: 'separator' }));
-var info_item = new gui.MenuItem({ label: 'Which Fruit Do I Love?' });
-menu2.append(info_item);
-var lastone = null;
-function flip() {
-  if (lastone) {
-    lastone.checked = false;
-    lastone.enabled = true;
-  }
-  lastone = this;
-  this.enabled = false;
-  info_item.label = 'I Love ' + this.label;
+// Define Timer
+function Timeout(fn, interval) {
+    this.id = setInterval(fn, interval);
+    this.cleared = false;
+    this.clear = function () {
+        this.cleared = true;
+        clearInterval(this.id);
+    };
+    this.restart = function (){
+        this.id = setInterval(fn, interval);
+    }
 }
-for (var i = 0; i < 4; ++i)
-  menu2.items[i].click = flip;
 
-var menu3 = new gui.Menu();
-var colors = [ '#000000', '#FF0000', '#00FF00' , '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF', '#C0C0C0', '#FFFFFF' ];
-function changecolor() {
-  document.getElementById('area-3').style.backgroundColor = this.label;
+// Polling Function
+function fnpoll(){
+    //console.log("..");
+    if(!SESSION_USER.userName) getSession();
+    $.ajax({
+        type:"get",
+        url: SERVER + "contents/list",
+        dataType:"json",
+        success : function(data) {
+            TREE = data;
+        },
+        error : function(xhr, status, error) {
+        }
+    });
 }
-for (var i = 0; i < colors.length; i++) {
-  menu3.append(new gui.MenuItem({ label: colors[i], click: changecolor }));
-};
 
-document.getElementById('area-1').addEventListener('contextmenu', function(ev) { 
-  ev.preventDefault();
-  menu1.popup(ev.x, ev.y);
-  return false;
+// Function
+function getSession(){
+    if(poll.cleared = false) poll.clear();
+    $('#login').modal('setting', {
+            closable  : false
+     }).modal('show');
+}
+
+function layout(id){
+    $(".tree-view").addClass("tree-undisplay");
+    if($("#"+ id).hasClass('tree-undisplay')) $("#"+ id).removeClass('tree-undisplay');
+    switch(id){
+        case "timeline":
+            $.get(TEMPLATE + "timeline.html", function(template){
+                _.extend(TREE, data_format);
+                var html = _.template(template, {tree: TREE});
+                $("#timeline").html(html);
+            });
+        break;
+        case "schedule":
+            $.get(TEMPLATE + "schedule.html", function(template){
+                _.extend(TREE, data_format);
+                var html = _.template(template, {tree: TREE});
+                $("#schedule").html(html);
+            });
+            break;
+    }
+}
+
+function data_format(dates){
+    var date = new Date(dates);
+    var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    var month = date.getMonth() < 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    return year + '-' + month + '-' + day;
+}
+
+
+// Event Handler
+$(document).on("click","div.link",function(){
+    var id = $(this).attr("data-menu"); // menu
+    layout(id);
+    VIEW = id;
 });
 
-document.getElementById('area-2').addEventListener('contextmenu', function(ev) { 
-  ev.preventDefault();
-  menu2.popup(ev.x, ev.y);
-  return false;
-});
-
-document.getElementById('area-3').addEventListener('contextmenu', function(ev) { 
-  ev.preventDefault();
-  menu3.popup(ev.x, ev.y);
-  return false;
+$(document).on("click","div.submit",function(){
+    var id = $(this).attr("data-id"); // menu
+    var url = $(this).attr("data-url"); // Mapping URL
+    switch(id){
+        // 사용자 로그인, 추가
+        case "tree-login":
+            $('#' + id).ajaxSubmit({
+                type: 'get',
+                url: SERVER + url,
+                dataType: 'json',
+                success: function (data) {
+                    if(data._id && data.userName){
+                        SESSION_USER.id = data._id;
+                        SESSION_USER.userName = data.userName;
+                        $('#login').hide();
+                        poll.restart();
+                    }
+                }
+            });
+            break;
+        case "tree-write":
+            var data = {treeType:1, contentUser:SESSION_USER.id, contentUserName: SESSION_USER.userName };
+            $('#' + id).ajaxSubmit({
+                type: 'get',
+                url: SERVER + url,
+                data: data,
+                dataType: 'json',
+                success: function (data) {
+                    fnpoll();
+                    $('#' + id)[0].reset();
+                    setTimeout(layout(VIEW), 5000);
+                }
+            });
+            break;
+        default:
+            break;
+    }
 });

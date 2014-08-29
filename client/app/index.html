@@ -1,44 +1,113 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Menu Demo</title>
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-}
-
-#left, #area-3 {
-  float: left;
-  height: 100%;
-  width: 50%;
-}
-
-#area-1 {
-  height: 50%;
-  background-color: #CC3333;
-}
-
-#area-2 {
-  height: 50%;
-  background-color: #FF9933;
-}
-
-#area-3 {
-  background-color: #0099FF;
-}
-</style>
+<head>    
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>PineTree</title>
+	<link rel="stylesheet" type="text/css" href="css/layout.css" />
+	<link rel="stylesheet" type="text/css" class="ui" href="packaged/css/semantic.css">
+	<script src="./js/jquery-1.11.1.min.js"></script>
+	<script src="./js/jquery.form.js" charset="utf-8"></script>
+	<script src="./js/socket.io.js" charset="utf-8"></script>
+    <script src="./js/underscore-min.js" charset="utf-8"></script>
+	<script src="packaged/javascript/semantic.min.js"></script>
 </head>
 <body>
-  <div id="left">
-    <div id="area-1"></div>
-    <div id="area-2"></div>
+  <div class="ui styled thin sidebar">
+      <div class="tree-user">
+          <i class="user icon huge"></i>
+          <p>PineTree</p>
+      </div>
+      <div class="ui selection list">
+          <div class="item link" data-menu="timeline">
+              <i class="inverted teal circular reorder icon"></i>
+              <div class="content tree-menu">타임라인 보기</div>
+          </div>
+          <div class="item link" data-menu="schedule">
+              <i class="inverted teal circular calendar icon"></i>
+              <div class="content tree-menu">일정 보기</div>
+          </div>
+          <div class="item link" data-menu="file">
+              <i class="inverted teal circular attachment icon"></i>
+              <div class="content tree-menu" >파일 탐색기</div>
+          </div>
+      </div>
   </div>
-  <div id="area-3"></div>
+  <div id="wrap">
+      <div id="write" class="ui tree-write">
+          <form id="tree-write" name="tree-login" role="form" method="post">
+          <div class="tree-textarea">
+              <textarea name="contentMemo" placeholder="일정, 할 일, 자료, 소식 등을 올릴 수 있습니다!"></textarea>
+          </div>
+          <div class="tree-editor">
+              <i class="large attachment icon"></i>
+              <i class="large photo icon"></i>
+              <div id="btn-submit" class="tiny ui teal hover button submit"  data-id="tree-write" data-url="contents">
+                  올리기
+              </div>
+          </div>
+         </form>
+      </div>
+      <div id="timeline" class="ui small feed tree-timeline tree-undisplay tree-view">
+          <!-- 내용 출력 -->
+
+      </div>
+
+      <div id="schedule" class="ui animated list list-padding tree-list tree-undisplay tree-view">
+          <div class="item">
+              <i class="inverted teal large circular leaf icon"></i>
+              <div class="content">
+                  <div class="header"><p>우와오아</p><p class="reg">2014년 8월 10일</p></div>
+                  테스트ㅈㄷㄹㅈㄷㄹ<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123
+              </div>
+          </div>
+          <div class="item">
+              <i class="inverted teal large circular leaf icon"></i>
+              <div class="content">
+                  <div class="header">우와오아</div>
+                  테스트ㅈㄷㄹㅈㄷㄹ<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123<br>13123
+              </div>
+          </div>
+          <div class="item">
+              <i class="inverted teal large circular leaf icon"></i>
+              <div class="content">
+                  <div class="header">우와오아</div>
+                  <div class="ui button tiny">
+                      <i class="save icon large"></i>
+                      pinetree.zip
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- 로그인 모달 -->
+  <div id="login" class="ui modal">
+      <div class="header">
+          PineTree에 오신 것을 환영합니다.
+      </div>
+      <div class="content ui form">
+          <form id="tree-login" name="tree-login" role="form" method="post">
+          <div class="two fields">
+              <div class="field error">
+                  <label>사용자 아이디</label>
+                  <input name="UserName" id="userName" type="text" placeholder="사용자 아이디" />
+              </div>
+              <div class="field error">
+                  <label>비밀번호</label>
+                  <input name="UserPassword" id="userPassword" type="password" />
+              </div>
+          </div>
+          </form>
+      </div>
+      <div class="actions">
+          <div class="ui teal button submit" data-id="tree-login" data-url="user">
+              로그인
+          </div>
+      </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
