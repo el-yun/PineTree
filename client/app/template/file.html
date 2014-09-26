@@ -1,0 +1,22 @@
+        <%
+        _.each(tree, function( data ){
+        if (data.contentFile.length > 0) {
+        %>
+        <div class="item">
+            <%
+            _.each(data.contentFile, function( File ){
+            %>
+            <div class="right floated tiny teal ui button filedown" data-link="<%- File.filename %>">다운로드</div>
+            <i class="inverted teal large circular inbox icon"></i>
+            <div class="content">
+                <div class="header"><%- File.filename %></div>
+                <%- data.contentMemo %>
+            </div>
+            <%
+            });
+            %>
+        </div>
+        <%
+        }
+        });
+        %>
