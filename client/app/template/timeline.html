@@ -1,0 +1,36 @@
+<%
+_.each(tree, function( data ){
+var icon = "pencil";
+if (data.contentRange[0]) icon = "tasks";
+else if (data.contentFile.length > 0) icon = "attachment";
+%>
+<div class="event">
+    <div class="label">
+        <i class="circular large <%- icon %> icon"></i>
+    </div>
+    <div class="content">
+        <div class="date">
+            <%- data_format(data.contentTime) %>
+        </div>
+        <div class="summary">
+            <%- data.contentUserName %>
+        </div>
+        <div class="extra text">
+            <%- data.contentMemo %>
+            <%
+            if (data.contentFile.length > 0) {
+            _.each(data.contentFile, function( File ){
+            %>
+            <br>
+            <div class="ui button tiny clear_left filedown" data-link="<%- File.filename %>">
+                <i class="save icon link large"></i>
+                <%- File.filename %>
+            </div>
+            <%
+            });
+            }
+            %>
+        </div>
+    </div>
+</div>
+<% }); %>

@@ -1,0 +1,26 @@
+<h2 class="ui large header">
+    트리 관리
+    <div class="sub header">트리에 등록된 사용자를 관리합니다.</div>
+</h2>
+<div class="ui selection list">
+<%
+_.each(tree, function( data ){
+%>
+    <div class="item">
+        <i class="inverted teal large circular user icon"></i>
+            <div class="list-content">
+                <div class="list-header">
+                    <p class="list-title"><%- data.userName %></p>
+                </div>
+                <div class="right-header">
+                    <div class="ui tiny button ">
+                        <i class="mail icon"></i>
+                        가입승인
+                    </div>
+                </div>
+            </div>
+    </div>
+<%
+});
+%>
+</div>

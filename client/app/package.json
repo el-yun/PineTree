@@ -5,12 +5,12 @@
       "title": "PineTree",
       "frame": false,
       "toolbar": false,
-      "width": 800,
-      "height": 500,
+      "width": 960,
+      "height": 600,
       "position": "mouse",
-      "min_width": 400,
-      "min_height": 200,
-      "max_width": 800,
+      "min_width": 960,
+      "min_height": 600,
+      "max_width": 960,
       "max_height": 600
   }
 }

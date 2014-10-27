@@ -1,44 +1,223 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Menu Demo</title>
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-}
-
-#left, #area-3 {
-  float: left;
-  height: 100%;
-  width: 50%;
-}
-
-#area-1 {
-  height: 50%;
-  background-color: #CC3333;
-}
-
-#area-2 {
-  height: 50%;
-  background-color: #FF9933;
-}
-
-#area-3 {
-  background-color: #0099FF;
-}
-</style>
+<head>    
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>PineTree</title>
+	<link rel="stylesheet" type="text/css" href="css/layout.css" />
+	<link rel="stylesheet" type="text/css" class="ui" href="packaged/css/semantic.css">
+	<script src="./js/jquery-1.11.1.min.js"></script>
+	<script src="./js/jquery.form.js" charset="utf-8"></script>
+	<script src="./js/socket.io.js" charset="utf-8"></script>
+    <script src="./js/underscore-min.js" charset="utf-8"></script>
+    <link rel='stylesheet' href='css/Nwagon.css' type='text/css'>
+    <script src='./js/Nwagon.js'></script>
+    <script src="packaged/javascript/semantic.min.js"></script>
 </head>
 <body>
-  <div id="left">
-    <div id="area-1"></div>
-    <div id="area-2"></div>
+  <div class="ui styled thin sidebar">
+      <div class="tree-user">
+          <img src="./imgs/icon_pinetree.png" class="tree-icon"/>
+          <p id="tree-title">PineTree</p>
+      </div>
+      <div class="ui selection list">
+          <div class="item link" data-menu="newtree">
+              <i class="inverted circular add icon"></i>
+              <div class="content tree-menu">트리 생성</div>
+          </div>
+          <div class="item link" data-menu="treelist">
+              <i class="inverted circular dashboard icon"></i>
+              <div class="content tree-menu">트리 선택</div>
+          </div>
+          <div class="item link" data-menu="treeinvite">
+              <i class="inverted circular mail icon"></i>
+              <div class="content tree-menu">트리 초대</div>
+          </div>
+          <div class="item link" data-menu="timeline">
+              <i class="inverted teal circular reorder icon"></i>
+              <div class="content tree-menu">타임라인 보기</div>
+          </div>
+          <div class="item link" data-menu="chart">
+              <i class="inverted teal circular calendar icon"></i>
+              <div class="content tree-menu">일정 보기</div>
+          </div>
+          <div class="item link" data-menu="file">
+              <i class="inverted teal circular attachment icon"></i>
+              <div class="content tree-menu" >파일 탐색기</div>
+          </div>
+          <div class="item link" data-menu="graph">
+              <i class="inverted purple circular signal icon"></i>
+              <div class="content tree-menu" >활동 통계 보기</div>
+          </div>
+      </div>
   </div>
-  <div id="area-3"></div>
+  <div id="wrap">
+      <div id="write" class="ui tree-write">
+          <form id="tree-write" name="tree-login" role="form" method="post" enctype="multipart/form-data">
+          <div class="tree-textarea">
+              <textarea name="contentMemo" placeholder="일정, 할 일, 자료, 소식 등을 올릴 수 있습니다!"></textarea>
+          </div>
+          <div class="tree-date">
+              <input type="date" name="contentRange_Start" placeholder="시작일"/><input type="date" name="contentRange_End"  placeholder="종료일"/>
+          </div>
+          <div class="tree-editor">
+              <i class="large attachment link icon" id="attach_file"></i>
+              <div id="btn-submit" class="tiny ui teal hover button submit"  data-id="tree-write" data-url="contents">
+                  올리기
+              </div>
+              <input type="file" name="contentFile" id="contentFile" class="inputfile"/>
+          </div>
+         </form>
+      </div>
+      <div id="timeline" class="ui small feed tree-timeline tree-undisplay tree-view">
+          <!-- 내용 출력 -->
+      </div>
+      <div id="chart" class="ui small feed tree-timeline tree-undisplay tree-view">
+          <!-- 내용 출력 -->
+      </div>
+      <div id="file" class="ui divided list list-padding tree-list tree-undisplay tree-view">
+          <!-- 내용 출력 -->
+      </div>
+      <div id="treelist" class="ui small feed tree-timeline tree-undisplay tree-view">
+          <!-- 내용 출력 -->
+      </div>
+      <div id="treeadmin" class="ui small feed tree-timeline tree-undisplay tree-view">
+          <!-- 내용 출력 -->
+      </div>
+      <div id="graph" class="ui animated list list-padding tree-list tree-undisplay tree-view">
+          <!-- 내용 출력 -->
+          <h2 class="ui large header">
+              트리 활동 통계
+          <div class="sub header">트리에 소속된 사용자의 활동량을 볼 수 있습니다.</div>
+          </h2>
+          <div id="treechart"></div>
+      </div>
+  </div>
+
+  <!-- 로그인 모달 -->
+  <div id="login" class="ui modal">
+      <div class="header">
+          PineTree에 오신 것을 환영합니다.
+      </div>
+      <div class="content ui form">
+          <form id="tree-login" name="tree-login" role="form" method="post">
+          <div class="two fields">
+              <div class="field error">
+                  <label>사용자 아이디</label>
+                  <input name="UserName" id="userName" type="text" placeholder="사용자 아이디" />
+              </div>
+              <div class="field error">
+                  <label>비밀번호</label>
+                  <input name="UserPassword" id="userPassword" type="password" />
+              </div>
+          </div>
+              <div class="field error">
+                  <label>사용자 이메일</label>
+                  <input name="UserEmail" id="userEmail" type="text" placeholder="사용자 이메일" />
+              </div>
+          </form>
+      </div>
+      <div class="actions">
+          <div class="ui teal button submit" data-id="tree-login" data-url="user">
+              로그인
+          </div>
+      </div>
+  </div>
+
+  <!-- 프로젝트 모달 -->
+  <div id="tree" class="ui modal">
+      <div class="header">
+          새로운 트리를 만듭니다.
+      </div>
+      <div class="content ui form">
+          <form id="tree-add" name="tree-add" role="form" method="post" enctype="multipart/form-data">
+              <div class="two fields">
+                  <div class="field error">
+                      <label>새로운 트리 명</label>
+                      <input name="treeName" id="treeName" type="text" placeholder="트리 이름" />
+                  </div>
+                  <div class="field error">
+                      <label>트리 소개</label>
+                      <input name="treeMemo" id="treeMemo" type="text" placeholder="트리에 대해 소개하세요" />
+                  </div>
+              </div>
+              <div class="field error">
+                  <label>트리 사진</label>
+                  <input name="attachFile" id="treeImage" type="file" placeholder="트리 이름" />
+              </div>
+          </form>
+      </div>
+      <div class="actions">
+          <div class="ui teal button submit" data-id="tree-add" data-url="tree">
+              확인
+          </div>
+      </div>
+  </div>
+
+  <!-- 프로젝트 초대 -->
+  <div id="treeInvite" class="ui modal">
+      <div class="header">
+          다른 사용자를 트리에 초대합니다.
+      </div>
+      <div class="content ui form">
+          <form id="tree-invite" name="tree-invite" role="form" method="post" enctype="multipart/form-data">
+                  <div class="field error">
+                      <label>초대할 사용자의 이메일</label>
+                      <input name="inviteEmail" id="inviteEmail" type="text" placeholder="이메일 주소" />
+                  </div>
+                  <div class="field">
+                      <label>초대 메세지</label>
+                      <input name="inviteText" id="inviteText" type="text" placeholder="초대 메세지를 꼭 적어서 상대에게 트리에 대해 알려주세요!" />
+                  </div>
+          </form>
+      </div>
+      <div class="actions">
+          <div class="ui teal button submit" data-id="tree-invite" data-url="tree/newuser">
+              확인
+          </div>
+      </div>
+  </div>
+
+  <!-- 준비중 모달 -->
+  <div id="ready" class="ui basic modal">
+      <div class="cell">현재 서비스가 준비중입니다.</div>
+
+      <div class="actions">
+          <div class="ui button">
+              확인
+          </div>
+      </div>
+  </div>
+
+  <!-- 초대 모달 -->
+  <div id="inviteApply" class="ui basic modal">
+      <div class="header">
+          사용자를 트리에 초대합니다.
+      </div>
+      <div class="cell" id="inviteMessage"></div>
+
+      <div class="actions">
+          <div class="ui secondary button submit" data-id="invite-apply" data-url="tree/apply">
+              가입
+          </div>
+          <div class="ui primary button">
+              거절
+          </div>
+      </div>
+  </div>
+
+  <!-- 메세지 모달 -->
+  <div id="message" class="ui basic modal">
+      <div class="cell" id="msg">현재 서비스가 준비중입니다.</div>
+
+      <div class="actions">
+          <div class="ui button">
+              확인
+          </div>
+      </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,22 @@
+<div class="chart-title">2014년 9월</div>
+<div id="gantt" class="chart">
+    <%
+    var last = daysInMonth(9,2014);
+    print('<div class="cell">');
+    for(i = 1; i < last; i++) {
+        print('<div class="line_column" style="left:' + (i-1)*30 + 'px">' + i + '</div>');
+    }
+    print('</div>');
+    _.each(tree, function( data ){
+        if (data.contentRange[0]) {
+        var left = 30*(getDay(data.contentRange[0].start)-1);
+        var length = 30*(getDay(data.contentRange[0].end) - getDay(data.contentRange[0].start)+1);
+        var right = left + length;
+        if(right > 30 * last) length = right - (30 * last);
+    %>
+    <div class="cell"><div class="line link" data-menu="timeline" style="width:<%- length %>px;left: <%- left %>px;"><%- data.contentMemo %></div></div>
+    <%
+        }
+    });
+    %>
+</div>

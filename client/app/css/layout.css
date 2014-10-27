@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+/* Reset */
+html,body{width:100%;height:100%}
+html{overflow-y:scroll}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,form,fieldset,p,button{margin:0;padding:0}
+body,h1,h2,h3,h4,input,button,textarea{font-family: "Malgun Gothic", "Helvetia"; font-size:12px;color:#383d41}
+
+body{background-color:#fff;text-align:center;*word-break:break-all;-ms-word-break:break-all}
+img,fieldset,iframe{border:0 none}
+li{list-style:none}
+input,select,button{vertical-align:middle}
+img{vertical-align:top}
+i,em,address{font-style:normal}
+label,button{cursor:pointer}
+button{margin:0;padding:0}
+a{color:#2f3743;text-decoration:none}
+a:hover{color:#390;text-decoration:underline}
+button *{position:relative}
+button img{left:-3px;*left:auto}
+html:first-child select{height:20px;padding-right:6px}
+option{padding-right:6px}
+hr{display:none}
+legend{*width:0}
+table{border-collapse:collapse;border-spacing:0}
+
+/* Common */
+.show{display:block}
+.hide{display:none}
+.blind,legend{display:block;overflow:hidden;position:absolute;top:-1000em;left:0}
+.ir{display:block;overflow:hidden;position:relative;z-index:-1;height:11px;font-size:11px;white-space:nowrap}
+.ellipsis{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis}
+.shadow2{overflow:hidden;position:absolute;left:0;bottom:-3px;width:100%;height:2px;background:url(http://img.naver.net/static/www/2014/bg_shadow_v3.png);_background:none;font-size:0;line-height:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img.naver.net/static/www/2014/bg_shadow_v3.png',sizingMethod='scale')}
+.flash_fix{position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%}
+#dim{display:none;position:absolute;top:0;left:0;z-index:99;width:100%;height:100%;background:url(http://img.naver.net/static/w9/blank.gif) repeat}
+.entry-title{display:none}
+iframe{vertical-align:top}
+
+/* Layout */
+#wrap {
+	position: relative;
+	width: 500px;
+	height: 100%;
+    min-width: 690px;
+	overflow: hidden;
+	border: 1px solid #f6f6f6;
+}
+.list-padding .item {
+    cursor:pointer;
+}
+.list-padding div.item{
+    padding: 8px 0px;
+    border-bottom: 1px solid #f6f6f6;
+}
+.list div.item div.content {
+    float:left;
+    text-align: left;
+}
+.list-content {
+    width: 100%;
+}
+.list-header {
+    float:left;
+    margin: 3px;
+}
+.right-header{
+    float: right;
+    font-size: 13px;
+    margin: 3px;
+}
+.list-header {
+    float:left;
+    margin: 3px;
+    text-align: left;
+}
+.list-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+.list-sub {
+    font-size: 12px;
+    line-height: 14px;
+}
+.tree-user {
+    width: 100%;
+    text-align:center;
+    cursor: pointer;
+}
+.tree-user p {
+    font-size: 16px;
+    font-weight: bold;
+}
+.tree-menu {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-left: -2px;
+}
+.tree-list .content .header {
+    margin-bottom: 5px;
+}
+.tree-timeline {
+    padding: 5px 10px;
+}
+.tree-timeline .event .content {
+    font-size: 12px;
+}
+.content .summary {
+    font-weight: bold;
+}
+.tree-undisplay {
+    display:none;
+}
+.tree-icon {
+    width: 110px;
+    height: 110px;
+}
+.tree-write {
+    width: 100%;
+    min-height: 180px;
+    border-bottom: 1px solid #f6f6f6;
+}
+.tree-date {
+    width: 100%;
+    min-height: 150px;
+    padding: 0px 5px;
+}
+.tree-date input{
+    float:right;
+    width: 150px;
+    height: 24px;
+    padding: 3px;
+    border: 0px;
+    outline: hidden;
+}
+.tree-textarea {
+    float:left;
+    width: 100%;
+    height: 120px;
+}
+.tree-textarea textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    border: 0px solid;
+    outline: none;
+    padding: 7px 10px;
+    font-size: 15px;
+}
+.tree-editor {
+    text-align: left;
+    padding: 0 10px;
+}
+#btn-submit {
+    float:right;
+}
+.inputfile {
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+.clear_left {
+    clear: left;
+}
+.chart-title {
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    height: 30px;
+}
+.chart{
+    position: relative;
+    width: 100%;
+    min-height: 450px;
+    overflow: auto;
+}
+.chart .line_column {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 16px;
+    border: 0px solid;
+}
+.chart .cell {
+    position: relative;
+    width: 100%;
+    float: left;
+    margin: 2px 0px;
+    height: 25px;
+}
+.chart .line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 20px;
+    height: 16px;
+    background: #00B5AD;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 0px;
+    text-overflow: ellipsis;
+    text-wrap: none;
+    overflow: hidden;
+    cursor:pointer;
+}

@@ -1,0 +1,27 @@
+<h2 class="ui large header">
+    트리 찾기
+    <div class="sub header">등록된 트리 또는 새로 가입을 원하는 트리를 찾을 수 있습니다.</div>
+</h2>
+<div class="ui selection list">
+<%
+_.each(tree, function( data ){
+%>
+    <div class="item">
+        <i class="inverted teal large circular leaf icon"></i>
+            <div class="list-content">
+                <div class="list-header">
+                    <p class="list-title"><%- data.treeName %></p>
+                    <p class="list-sub"><%- data.treeMemo %></p>
+                </div>
+                <div class="right-header">
+                    <div class="ui tiny button listlink" data-menu="treeChange" data-id="<%- data._id %>" data-name="<%- data.treeName %>">
+                        <i class="mail icon"></i>
+                        트리 선택
+                    </div>
+                </div>
+            </div>
+    </div>
+<%
+});
+%>
+</div>
